@@ -50,8 +50,8 @@ void trackObject(IplImage* imgThresh){
 	 * cvDrawContours(CvArr* img, CvSeq* contour, CvScalar externalColor, CvScalar holeColor, int maxLevel, int thickness=1, int lineType=8 )
 	 * Link: http://docs.opencv.org/2.4/modules/core/doc/drawing_functions.html#void%20line(Mat&%20img,%20Point%20pt1,%20Point%20pt2,%20const%20Scalar&%20color,%20int%20thickness,%20int%20lineType,%20int%20shift)
 	 */
-	cvFindContours(imgThresh, storage, &contour, sizeof(CvContour), CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
-	cvContourArea(contour);
+	cvFindContours(imgThresh, storage, &contour, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
+	//cvContourArea(contour);
 	//Prueba, no se si esto me funcione para dibujar el contorno del triangulo
 	//cvDrawContours(imgThresh, contour, cvScalar(45,165,24), cvScalar(45,165,24), 100,8);
 
@@ -73,7 +73,7 @@ void trackObject(IplImage* imgThresh){
 			int posX=( pt[0]->x + pt[1]->x + pt[2]->x )/3;
 			int posY=( pt[0]->y + pt[1]->y + pt[2]->y )/3;
 
-			if(posX > 360 ){
+			//if(posX > 360 ){
 				if(lastX1>=0 && lastY1>=0 && posX>=0 && posY>=0)
 				{
 					// Draw a red line from the previous point to the current point
@@ -87,17 +87,17 @@ void trackObject(IplImage* imgThresh){
 
 				lastX1 = posX;
 				lastY1 = posY;
-			}
-			else{
-				if(lastX2>=0 && lastY2>=0 && posX>=0 && posY>=0)
-				{
-					// Draw a blue line from the previous point to the current point
-					cvLine(imgTracking, cvPoint(posX, posY), cvPoint(lastX2, lastY2), cvScalar(255,0,0), 4);
-				}
-
-				lastX2 = posX;
-				lastY2 = posY;
-			}
+			//}
+//			else{
+//				if(lastX2>=0 && lastY2>=0 && posX>=0 && posY>=0)
+//				{
+//					// Draw a blue line from the previous point to the current point
+//					cvLine(imgTracking, cvPoint(posX, posY), cvPoint(lastX2, lastY2), cvScalar(255,0,0), 4);
+//				}
+//
+//				lastX2 = posX;
+//				lastY2 = posY;
+//			}
 		}
 
 		//obtain the next contour
